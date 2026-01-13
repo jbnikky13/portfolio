@@ -1,9 +1,6 @@
-# Godam Nichole Portfolio
 # Godam Nichole | Web3 Portfolio 🚀
-
 A professional personal portfolio showcasing expertise in blockchain data, front-end development, and the On-Chain world.
-
-## 🔗 Live Demo
+ ## 🔗 Live Demo
 [View my live portfolio here!](https://jbnikky13.github.io/portfolio/)
 
 ## 🛠️ Tech Stack
