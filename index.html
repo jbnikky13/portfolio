@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godam Nichole | Data & Crypto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.1.1/web3.min.js"></script>
+    <style>
+        body { background-color: #020617; color: #f8fafc; scroll-behavior: smooth; }
+        .gradient-text {
+            background: linear-gradient(90deg, #22d3ee, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .profile-glow { box-shadow: 0 0 30px rgba(34, 211, 238, 0.3); }
+        .btn-connect { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <nav class="max-w-6xl mx-auto px-6 py-8 flex justify-between items-center">
+        <div class="text-xl font-mono font-bold tracking-tighter">GODAM<span class="text-cyan-400">.NICHOLE</span></div>
+        <div class="flex items-center space-x-6">
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-400 mr-6">
+                <a href="#about" class="hover:text-cyan-400">About</a>
+                <a href="#skills" class="hover:text-cyan-400">Skills</a>
+                <a href="#work" class="hover:text-cyan-400">Work</a>
+            </div>
+            <button id="connectButton" class="btn-connect bg-transparent border border-cyan-400 text-cyan-400 px-5 py-2 rounded-full font-mono text-xs hover:bg-cyan-400 hover:text-slate-950">
+                Connect Wallet
+            </button>
+        </div>
+    </nav>
+
+    <header id="about" class="max-w-6xl mx-auto px-6 py-16 md:py-24 flex flex-col md:flex-row items-center gap-12">
+        <div class="flex-1">
+            <h2 class="text-cyan-400 font-mono mb-4 text-sm tracking-widest uppercase">Data Analyst & Crypto Specialist</h2>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">Decoding the <span class="gradient-text">On-Chain</span> World.</h1>
+            <p class="text-lg text-gray-400 leading-relaxed mb-8">
+                I'm <strong>Godam Nichole</strong>. I specialize in Python-driven data analytics, bridging the gap between traditional data insights and the Web3 ecosystem.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="https://wa.me/2348189963607" class="bg-cyan-500 text-slate-950 px-6 py-3 rounded-lg font-bold hover:bg-cyan-300">WhatsApp Me</a>
+                <a href="https://x.com/Vibeholder" class="px-6 py-3 rounded-lg border border-gray-700 hover:bg-gray-800">Twitter / X</a>
+            </div>
+        </div>
+        <div class="flex-shrink-0">
+            <img src="avatar.png" alt="Godam Nichole Avatar" class="w-64 h-64 md:w-80 md:h-80 rounded-2xl object-cover profile-glow border-2 border-cyan-400/20">
+        </div>
+    </header>
+
+    <section id="skills" class="max-w-6xl mx-auto px-6 py-20 border-t border-gray-900">
+        <h2 class="text-3xl font-bold mb-10 text-center text-white">Technical Stack</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="bg-slate-900/50 p-6 rounded-xl border border-gray-800 text-center">
+                <div class="text-cyan-400 text-2xl mb-2 font-bold">Python</div>
+                <p class="text-xs text-gray-500 uppercase">Analysis</p>
+            </div>
+            <div class="bg-slate-900/50 p-6 rounded-xl border border-gray-800 text-center">
+                <div class="text-purple-400 text-2xl mb-2 font-bold">Web3.py</div>
+                <p class="text-xs text-gray-500 uppercase">On-Chain</p>
+            </div>
+            <div class="bg-slate-900/50 p-6 rounded-xl border border-gray-800 text-center">
+                <div class="text-pink-400 text-2xl mb-2 font-bold">SQL</div>
+                <p class="text-xs text-gray-500 uppercase">Querying</p>
+            </div>
+            <div class="bg-slate-900/50 p-6 rounded-xl border border-gray-800 text-center"><div class="text-blue-400 text-2xl mb-2 font-bold">Pandas</div>
+                <p class="text-xs text-gray-500 uppercase">Wrangling</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-gray-900 text-center">
+        <p class="text-gray-600 italic">FID: Jbnikky13 | godamsorbari13@gmail.com</p>
+    </footer>
+
+    <script>
+        const connectButton = document.getElementById('connectButton');
+
+        async function connectWallet() {
+            if (window.ethereum) {
+                try {
+                    // Request account access
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const account = accounts[0];
+                    
+                    // Update button to show shortened address
+                    connectButton.innerText = account.substring(0, 6) + '...' + account.substring(account.length - 4);
+                    connectButton.classList.remove('border-cyan-400', 'text-cyan-400');
+                    connectButton.classList.add('bg-green-500', 'text-white', 'border-green-500');
+                    
+                    console.log("Connected to:", account);
+                } catch (error) {
+                    console.error("User denied account access", error);
+                }
+            } else {
+                alert('Please install MetaMask or a Web3 wallet to use this feature!');
+            }
+        }
+
+        connectButton.addEventListener('click', connectWallet);
+    </script>
+
+</body>
+</html>
