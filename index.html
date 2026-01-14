@@ -3,124 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Godam Nichole | Data & Crypto</title>
+    <title>Godam Nichole | Data & Crypto Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.1.1/web3.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        body { background-color: #020617; color: #f8fafc; scroll-behavior: smooth; }
+        body { background-color: #020617; color: #f8fafc; scroll-behavior: smooth; font-family: sans-serif; }
         .gradient-text {
             background: linear-gradient(90deg, #22d3ee, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .profile-glow { box-shadow: 0 0 30px rgba(34, 211, 238, 0.3); }
-        .btn-connect { transition: all 0.3s ease; }
+        .project-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
     </style>
 </head>
-<body class="font-sans antialiased">
+<body class="antialiased">
 
-    <nav class="max-w-6xl mx-auto px-6 py-8 flex justify-between items-center">
-        <div class="text-xl font-mono font-bold tracking-tighter">GODAM<span class="text-cyan-400">.NICHOLE</span></div>
-        <div class="flex items-center space-x-6">
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-400 mr-6">
-                <a href="#about" class="hover:text-cyan-400">About</a>
-                <a href="#skills" class="hover:text-cyan-400">Skills</a>
-                <a href="#work" class="hover:text-cyan-400">Work</a>
+    <header class="border-b border-gray-900 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
+        <nav class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-mono font-bold tracking-tighter uppercase">
+                GODAM<span class="text-cyan-400">.NICHOLE</span>
             </div>
-            <button id="connectButton" class="btn-connect bg-transparent border border-cyan-400 text-cyan-400 px-5 py-2 rounded-full font-mono text-xs hover:bg-cyan-400 hover:text-slate-950">
-                Connect Wallet
-            </button>
-        </div>
-    </nav>
+            <div class="flex items-center gap-5">
+                <a href="mailto:your-email@example.com" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <i class="fas fa-envelope text-xl"></i>
+                </a>
+                <a href="https://x.com/Vibeholder" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <i class="fab fa-x-twitter text-xl"></i>
+                </a>
+                <a href="https://wa.me/2348189963607" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
 
-    <header id="about" class="max-w-6xl mx-auto px-6 py-16 md:py-24 flex flex-col md:flex-row items-center gap-12">
+    <section class="max-w-6xl mx-auto px-6 py-20 text-center md:text-left flex flex-col md:flex-row items-center gap-12">
         <div class="flex-1">
-            <h2 class="text-cyan-400 font-mono mb-4 text-sm tracking-widest uppercase">Data Analyst & Crypto Specialist</h2>
-            <h1 class="text-5xl md:text-7xl font-bold mb-6">Decoding the <span class="gradient-text">On-Chain</span> World.</h1>
-            <p class="text-lg text-gray-400 leading-relaxed mb-8">
-                I'm <strong>Godam Nichole</strong>. I specialize in Python-driven data analytics, bridging the gap between traditional data insights and the Web3 ecosystem.
+            <h2 class="text-cyan-400 font-mono mb-4 uppercase tracking-widest text-sm">Decoding the Blockchain</h2>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">I'm <span class="gradient-text">Godam Nichole</span></h1>
+            <p class="text-lg text-gray-400 leading-relaxed mb-8 max-w-2xl">
+                I specialize in Python-driven data analysis and on-chain auditing. I build tools to visualize market risks and tokenomics.
             </p>
-            <div class="flex flex-wrap gap-4">
-                <a href="https://wa.me/2348189963607" class="bg-cyan-500 text-slate-950 px-6 py-3 rounded-lg font-bold hover:bg-cyan-300">WhatsApp Me</a>
-                <a href="https://x.com/Vibeholder" class="px-6 py-3 rounded-lg border border-gray-700 hover:bg-gray-800">Twitter / X</a>
+            <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                <a href="https://wa.me/2348189963607" class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-8 py-3 rounded-full font-bold transition-all">Let's Talk</a>
             </div>
         </div>
         <div class="flex-shrink-0">
-            <img src="avatar.png" alt="Godam Nichole Avatar" class="w-64 h-64 md:w-80 md:h-80 rounded-2xl object-cover profile-glow border-2 border-cyan-400/20">
-        </div>
-    </header>
-    <section id="whale-audit" class="max-w-6xl mx-auto px-6 py-10 border-t border-gray-900">
-    <h2 class="text-3xl font-bold mb-6 text-white text-center">Featured Project: Token Distribution Audit</h2>
-    <div class="bg-slate-900/50 p-8 rounded-xl border border-gray-800 flex flex-col md:flex-row gap-8 items-center">
-        <div class="flex-1">
-            <h3 class="text-cyan-400 text-xl font-mono mb-4 uppercase tracking-wider">Risk Assessment Tool</h3>
-            <p class="text-gray-400 leading-relaxed mb-6">
-                I developed this Python-based auditor to visualize wallet concentration in Web3 projects. By analyzing holder data, the tool identifies "Whale" risks and helps determine if a token is truly decentralized or controlled by a few large entities.
-            </p>
-            <div class="flex gap-4">
-                <span class="text-xs text-cyan-500 border border-cyan-500/30 px-3 py-1 rounded-full">Python</span>
-                <span class="text-xs text-cyan-500 border border-cyan-500/30 px-3 py-1 rounded-full">Pandas</span>
-                <span class="text-xs text-cyan-500 border border-cyan-500/30 px-3 py-1 rounded-full">Matplotlib</span>
-            </div>
-        </div>
-        <div class="flex-1">
-            <img src="token_audit_chart.png" alt="Whale Analysis Chart" class="rounded-lg shadow-2xl border border-gray-700 w-full hover:scale-105 transition-transform duration-300">
-        </div>
-    </div>
-</section>
-
-    <section id="skills" class="max-w-6xl mx-auto px-6 py-20 border-t border-gray-900">
-        <h2 class="text-3xl font-bold mb-10 text-center text-white">Technical Stack</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="bg-slate-900/50 p-6 rounded-xl border border-gray-800 text-center">
-                <div class="text-cyan-400 text-2xl mb-2 font-bold">Python</div>
-                <p class="text-xs text-gray-500 uppercase">Analysis</p>
-            </div>
-            <div class="bg-slate-900/50 p-6 rounded-xl border border-gray-800 text-center">
-                <div class="text-purple-400 text-2xl mb-2 font-bold">Web3.py</div>
-                <p class="text-xs text-gray-500 uppercase">On-Chain</p>
-            </div>
-            <div class="bg-slate-900/50 p-6 rounded-xl border border-gray-800 text-center">
-                <div class="text-pink-400 text-2xl mb-2 font-bold">SQL</div>
-                <p class="text-xs text-gray-500 uppercase">Querying</p>
-            </div>
-            <div class="bg-slate-900/50 p-6 rounded-xl border border-gray-800 text-center"><div class="text-blue-400 text-2xl mb-2 font-bold">Pandas</div>
-                <p class="text-xs text-gray-500 uppercase">Wrangling</p>
-            </div>
+            <img src="avatar.png" alt="Avatar" class="w-64 h-64 rounded-full border-4 border-cyan-500/20 shadow-[0_0_50px_rgba(34,211,238,0.2)]">
         </div>
     </section>
 
-    <footer class="py-12 border-t border-gray-900 text-center">
-        <p class="text-gray-600 italic">FID: Jbnikky13 | godamsorbari13@gmail.com</p>
-    </footer>
-
-    <script>
-        const connectButton = document.getElementById('connectButton');
-
-        async function connectWallet() {
-            if (window.ethereum) {
-                try {
-                    // Request account access
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const account = accounts[0];
-                    
-                    // Update button to show shortened address
-                    connectButton.innerText = account.substring(0, 6) + '...' + account.substring(account.length - 4);
-                    connectButton.classList.remove('border-cyan-400', 'text-cyan-400');
-                    connectButton.classList.add('bg-green-500', 'text-white', 'border-green-500');
-                    
-                    console.log("Connected to:", account);
-                } catch (error) {
-                    console.error("User denied account access", error);
-                }
-            } else {
-                alert('Please install MetaMask or a Web3 wallet to use this feature!');
-            }
-        }
-
-        connectButton.addEventListener('click', connectWallet);
-    </script>
-
-</body>
-
-</html>
+    <section id="work" class="max-w-6xl mx-auto px-6 py-20 border-t border-gray-900">
+        <h2 class="text-3xl font-bold mb-12 text-center">Featured Work</h2>
+        <div class="project-card bg-slate-900/40 p-8 rounded-3xl border border-gray-800 flex flex-col md:flex-row gap-10 items-center">
+            <div class="flex-1">
+                <h3 class="text-2xl font-bold mb-2 text-white text-left">Whale Concentration Audit</h3>
+                <h4 class="text-cyan-400 text-xs font-mono mb-4 uppercase tracking-widest text-left">Python / Pandas / Matplotlib</h4>
+                <p class="text-gray-400 leading-relaxed mb-6 text-left">
+                    I developed this tool to identify risk in new Web3 projects. By analyzing holder wallets, it generates a visual breakdown of "Whale" concentration to determine if a token is truly decentralized.
+                </p>
+                <div class="flex gap-3">
+                    <span class="bg-cyan-500/10 text-cyan-400 text-xs px-3 py-1 rounded-md border border-cyan-500/20">Data Analysis</span>
