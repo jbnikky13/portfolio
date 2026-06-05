@@ -124,7 +124,63 @@
   }
 
   .hero-inner {
-    max-width: 900px;
+    max-width: 1100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-text { max-width: 640px; }
+
+  .hero-avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .hero-avatar-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent), var(--accent2), var(--accent), var(--accent2), var(--accent));
+    animation: spin 6s linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .hero-avatar-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: var(--bg);
+    z-index: 1;
+  }
+
+  .hero-avatar {
+    position: relative;
+    z-index: 2;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+    .hero-avatar-wrap {
+      display: flex;
+      justify-content: center;
+      order: -1;
+    }
+    .hero-avatar { width: 160px; height: 160px; }
   }
 
   .hero-tag {
@@ -526,6 +582,7 @@
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
   <div class="hero-inner">
+    <div class="hero-text">
     <div class="hero-tag">Available for collaboration</div>
     <h1>
       <span class="line-dim">Godam</span><br>
@@ -545,6 +602,12 @@
       <a class="btn btn-primary" href="#projects">View Projects</a>
       <a class="btn btn-outline" href="#contact">Get in Touch</a>
     </div>
+    </div><!-- end hero-text -->
+
+    <div class="hero-avatar-wrap">
+      <img class="hero-avatar" src="avatar.png" alt="Godam Nichole">
+    </div>
+
   </div>
 </div>
 
