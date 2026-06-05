@@ -1,98 +1,877 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Godam Nichole | Data Analyst</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        body { background-color: #020617; color: #f8fafc; scroll-behavior: smooth; }
-        .gradient-text { background: linear-gradient(90deg, #22d3ee, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Godam Nichole | Pharmacist · Data Analyst · Web3 Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c10;
+    --surface: #111318;
+    --surface2: #181c24;
+    --border: #1e2430;
+    --accent: #00e5b0;
+    --accent2: #7c6dfa;
+    --accent3: #ff6b6b;
+    --text: #e8eaf0;
+    --muted: #5a6070;
+    --tag-bg: #161b24;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── GRID LINES ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2.5rem;
+    background: rgba(10,12,16,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 2.5rem 4rem;
+    z-index: 1;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 20%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0,229,176,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    bottom: 0;
+    right: -5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(124,109,250,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 900px;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(0,229,176,0.06);
+    border: 1px solid rgba(0,229,176,0.15);
+    padding: 0.4rem 0.9rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-tag::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+  }
+
+  h1 .line-dim { color: var(--muted); }
+  h1 .line-accent { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 3rem;
+  }
+
+  .role-chip {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 2px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.8rem;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+  }
+  .btn-primary:hover { background: #00ffbe; transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── SECTION ── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+
+  .about-text p {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .stat-card {
+    background: var(--surface);
+    padding: 1.5rem;
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .project-card {
+    background: var(--surface);
+    padding: 2rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card:hover { background: var(--surface2); }
+
+  .project-card.purple::before { background: var(--accent2); }
+  .project-card.red::before { background: var(--accent3); }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .project-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .project-arrow {
+    color: var(--muted);
+    font-size: 0.9rem;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .project-card:hover .project-arrow { transform: translate(3px, -3px); color: var(--accent); }
+
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .project-desc {
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--muted);
+    flex: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 1px;
+  }
+
+  .tag.green { border-color: rgba(0,229,176,0.25); color: var(--accent); background: rgba(0,229,176,0.05); }
+  .tag.purple { border-color: rgba(124,109,250,0.25); color: var(--accent2); background: rgba(124,109,250,0.05); }
+  .tag.red { border-color: rgba(255,107,107,0.25); color: var(--accent3); background: rgba(255,107,107,0.05); }
+
+  /* ── STACK ── */
+  .stack-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+
+  .stack-item {
+    background: var(--surface);
+    padding: 1.4rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .stack-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .stack-dot.purple { background: var(--accent2); }
+  .stack-dot.red { background: var(--accent3); }
+
+  .stack-name {
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .stack-sub {
+    font-size: 0.6rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-top: 0.15rem;
+  }
+
+  /* ── CONTACT ── */
+  .contact-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.7rem 1.2rem;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    position: relative;
+    z-index: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 100%;
+    margin: 0;
+  }
+
+  /* ── FADE IN ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.2rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.2rem; }
+    .hero { padding: 7rem 1.2rem 3rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    footer { padding: 1.5rem 1.2rem; }
+  }
+</style>
 </head>
-<body class="font-sans antialiased">
-    <nav class="max-w-6xl mx-auto px-6 py-10 flex justify-between items-center">
-        <div class="text-xl font-mono font-bold tracking-tighter">GODAM<span class="text-cyan-400">.NICHOLE</span></div>
-        <div class="flex items-center gap-6">
-            <a href="mailto:yourname@email.com" class="text-gray-400 hover:text-cyan-400 text-xl"><i class="fas fa-envelope"></i></a>
-            <a href="https://x.com/Vibeholder" target="_blank" class="text-gray-400 hover:text-cyan-400 text-xl"><i class="fab fa-x-twitter"></i></a>
-            <a href="https://wa.me/2348189963607" target="_blank" class="text-gray-400 hover:text-cyan-400 text-xl"><i class="fab fa-whatsapp"></i></a>
-        </div>
-    </nav>
+<body>
 
-    <header class="max-w-6xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-12">
-        <div class="flex-1">
-            <h2 class="text-cyan-400 font-mono mb-4 text-sm tracking-widest uppercase">Data Analyst</h2>
-            <h1 class="text-6xl md:text-8xl font-bold mb-6 leading-tight">Decoding the <span class="gradient-text">Future</span></h1>
-            <p class="text-lg text-gray-400 leading-relaxed">I'm Godam Nichole. I specialize in Python-driven data analysis and on-chain auditing.</p>
-        </div>
-        <div class="flex-shrink-0">
-            <img src="avatar.png" alt="Avatar" class="w-64 h-64 rounded-full border-2 border-cyan-500/20 shadow-[0_0_50px_rgba(34,211,238,0.2)]">
-        </div>
-    </header>
-    <section id="about" class="max-w-6xl mx-auto px-6 py-16 border-t border-gray-900">
-        <div class="flex flex-col md:flex-row gap-12">
-            <div class="flex-1">
-                <h2 class="text-3xl font-bold mb-6">Behind the Data</h2>
-                <p class="text-gray-400 text-lg mb-6">I bridge the gap between raw Web3 data and actionable market insights using Python and tokenomics.</p>
-                <p class="text-gray-400 text-lg">Transparency is the backbone of the decentralized world.</p>
-            </div>
-            <div class="flex-1 grid grid-cols-1 gap-4">
-                <div class="bg-slate-900/40 p-6 rounded-2xl border border-gray-800">
-                    <h4 class="text-cyan-400 font-mono text-sm uppercase mb-2">My Mission</h4>
-                    <p class="text-gray-300 text-sm">To provide clarity in Web3 through rigorous data auditing.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">GN_</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-    <section class="max-w-6xl mx-auto px-6 py-20 border-t border-gray-900">
-        <h2 class="text-3xl font-bold mb-10 text-center uppercase tracking-widest text-gray-500">Featured Work</h2>
-        <div class="bg-slate-900/40 p-10 rounded-3xl border border-gray-800 flex flex-col md:flex-row gap-10 items-center">
-            <div class="flex-1">
-                <h3 class="text-3xl font-bold mb-4">Whale Concentration Audit</h3>
-                <p class="text-gray-400 mb-8">Visualizing wallet concentration to determine if a token is truly decentralized.</p>
-                <span class="bg-cyan-400/10 text-cyan-400 text-xs px-4 py-2 rounded-full border border-cyan-400/20">Python / Matplotlib</span>
-            </div>
-            <div class="flex-1"><img src="token_audit_chart.png" class="rounded-xl border border-gray-700 w-full"></div>
-        </div>
-    </section>
-    <section class="max-w-6xl mx-auto px-6 py-20 border-t border-gray-900">
-        <div class="bg-slate-900/40 p-10 rounded-3xl border border-gray-800 flex flex-col md:flex-row-reverse gap-10 items-center">
-            <div class="flex-1 text-left">
-                <h3 class="text-3xl font-bold mb-4">Live Market Price Tracker</h3>
-                <p class="text-gray-400 mb-8">Fetching real-time asset prices via CoinGecko API and visualizing rankings dynamically.</p>
-                <span class="bg-purple-400/10 text-purple-400 text-xs px-4 py-2 rounded-full border border-purple-400/20">API Integration</span>
-            </div>
-            <div class="flex-1"><img src="live_market_chart.png" class="rounded-xl border border-gray-700 w-full"></div>
-        </div>
-    </section>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Available for collaboration</div>
+    <h1>
+      <span class="line-dim">Godam</span><br>
+      <span class="line-accent">Nichole</span>
+    </h1>
+    <p class="hero-sub">
+      Licensed Pharmacist building at the intersection of healthcare, blockchain, and data. I write code that makes drugs harder to fake, markets easier to read, and Web3 more useful in the real world.
+    </p>
+    <div class="hero-roles">
+      <span class="role-chip">Data Analyst</span>
+      <span class="role-chip">Web3 Developer</span>
+      <span class="role-chip">Solana / EVM</span>
+      <span class="role-chip">Licensed Pharmacist</span>
+      <span class="role-chip">Healthcare Tech</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projects">View Projects</a>
+      <a class="btn btn-outline" href="#contact">Get in Touch</a>
+    </div>
+  </div>
+</div>
 
-    <section id="skills" class="max-w-6xl mx-auto px-6 py-24 border-t border-gray-900">
-        <h2 class="text-3xl font-bold mb-12 text-center">Technical Stack</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="bg-slate-950 p-8 rounded-2xl border border-gray-800 text-center">
-                <div class="text-cyan-400 text-3xl font-bold mb-2">Python</div>
-                <p class="text-gray-500 text-xs uppercase font-mono">Analysis</p>
-            </div>
-            <div class="bg-slate-950 p-8 rounded-2xl border border-gray-800 text-center">
-                <div class="text-cyan-400 text-3xl font-bold mb-2">Pandas</div>
-                <p class="text-gray-500 text-xs uppercase font-mono">Data</p>
-            </div>
-            <div class="bg-slate-950 p-8 rounded-2xl border border-gray-800 text-center">
-                <div class="text-cyan-400 text-3xl font-bold mb-2">Web3</div>
-                <p class="text-gray-500 text-xs uppercase font-mono">On-Chain</p>
-            </div>
-            <div class="bg-slate-950 p-8 rounded-2xl border border-gray-800 text-center">
-                <div class="text-cyan-400 text-3xl font-bold mb-2">GitHub</div>
-                <p class="text-gray-500 text-xs uppercase font-mono">Control</p>
-            </div>
-        </div>
-    </section>
+<div class="divider"></div>
 
-    <footer class="py-20 border-t border-gray-900 text-center">
-        <p class="text-gray-600 text-xs uppercase tracking-widest">© 2026 Godam Nichole • Blockchain Data Analyst</p>
-    </footer>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <h2>Bridging pharma &amp;<br>decentralized systems</h2>
+  <div class="about-grid fade-in">
+    <div class="about-text">
+      <p>I'm a licensed pharmacist turned full-stack Web3 developer. My work lives at the crossroads of public health, on-chain data, and financial infrastructure — because those are the problems that actually matter.</p>
+      <p>From <strong>counterfeit drug detection on Solana</strong> to <strong>real-time blockchain analytics</strong>, I build tools that turn raw chain data into actionable insight. My background in pharmaceutical science gives me an unusual edge: I understand the problem before I write a line of code.</p>
+      <p>Currently exploring: Circle's Arc L1, Pi Network ecosystem, and AI-augmented drug supply chain tooling.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Public Repos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Live Deployments</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Blockchains</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">NG</div>
+        <div class="stat-label">Based in Nigeria</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Work</div>
+  <h2>Featured Projects</h2>
+
+  <div class="projects-grid fade-in">
+
+    <!-- PharmaTrace -->
+    <a class="project-card" href="https://github.com/jbnikky13/pharmatrace" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">💊</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">PharmaTrace</div>
+      <div class="project-desc">Blockchain-powered drug authentication for Nigeria, built on Solana. Manufacturers register drug batches on-chain with NAFDAC IDs; anyone can verify authenticity instantly. Counterfeit drugs return a live NAFDAC warning. No database. No trust required.</div>
+      <div class="project-tags">
+        <span class="tag green">Solana</span>
+        <span class="tag">Anchor / Rust</span>
+        <span class="tag">React + TS</span>
+        <span class="tag green">Live on Vercel</span>
+      </div>
+    </a>
+
+    <!-- Solana Blink Sniper -->
+    <a class="project-card purple" href="https://github.com/jbnikky13/solana-blink-sniper" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">🎯</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">Blink-N-Snipe</div>
+      <div class="project-desc">Real-time Solana block scanner and monitoring dashboard. Streams live slots, TPS, and classifies every transaction — swaps, transfers, token ops. Detects Raydium, Orca, and Jupiter V6 protocol activity. Built for speed and on-chain clarity.</div>
+      <div class="project-tags">
+        <span class="tag purple">Solana Mainnet</span>
+        <span class="tag">React + Vite</span>
+        <span class="tag">QuickNode RPC</span>
+        <span class="tag">Supabase</span>
+      </div>
+    </a>
+
+    <!-- PharmIQ Web -->
+    <a class="project-card" href="https://pharm-iq-web.vercel.app" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">🧬</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">PharmIQ Web</div>
+      <div class="project-desc">Full React + Vite web application for pharmaceutical intelligence. A modern frontend platform designed to surface drug data, market insights, and compliance tools for healthcare professionals and analysts.</div>
+      <div class="project-tags">
+        <span class="tag">React</span>
+        <span class="tag">Vite</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag green">Live on Vercel</span>
+      </div>
+    </a>
+
+    <!-- Pharma-Ops -->
+    <a class="project-card" href="https://pharma-ops-seven.vercel.app" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">⚗️</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">Pharma-Ops</div>
+      <div class="project-desc">Next.js platform for pharmaceutical operations management. Combines a TypeScript frontend with a Python ML layer — integrating predictive analytics and operational data pipelines for supply chain intelligence.</div>
+      <div class="project-tags">
+        <span class="tag">Next.js</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag purple">Python ML</span>
+        <span class="tag green">Live on Vercel</span>
+      </div>
+    </a>
+
+    <!-- Pi Whale Tracker -->
+    <a class="project-card purple" href="https://github.com/jbnikky13/pi-whale-tracker" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">🐋</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">Pi Whale Tracker</div>
+      <div class="project-desc">Real-time whale transaction monitor for the Pi Network blockchain. Classifies mega whales (10k+ π), whales, and big fish. Full wallet lookup, live stats, Pi Browser SDK integration, and Pi payment support. Updated every 30 seconds.</div>
+      <div class="project-tags">
+        <span class="tag purple">Pi Network</span>
+        <span class="tag">React</span>
+        <span class="tag">Node.js + Express</span>
+        <span class="tag">Railway</span>
+      </div>
+    </a>
+
+    <!-- RxScan Nigeria -->
+    <a class="project-card red" href="https://github.com/jbnikky13/rxscan-nigeria" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">🔬</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">RxScan Nigeria</div>
+      <div class="project-desc">TypeScript-first prescription and drug scanning tool tailored for Nigeria's pharmaceutical landscape. Built to bridge NAFDAC regulatory data with accessible scanning and verification tooling for pharmacists and patients.</div>
+      <div class="project-tags">
+        <span class="tag red">TypeScript</span>
+        <span class="tag">Healthcare</span>
+        <span class="tag">Nigeria</span>
+        <span class="tag">MIT License</span>
+      </div>
+    </a>
+
+    <!-- ArcKit -->
+    <a class="project-card" href="https://github.com/jbnikky13/arckit" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">⬡</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">ArcKit</div>
+      <div class="project-desc">CLI scaffold tool for Circle's Arc L1 blockchain. Zero to deployed smart contract in minutes — Arc testnet pre-configured, production-ready Solidity templates (escrow, payment, subscription), full Hardhat test suites. A live escrow contract deployed on Arc Testnet.</div>
+      <div class="project-tags">
+        <span class="tag green">Arc L1</span>
+        <span class="tag">Solidity</span>
+        <span class="tag">Hardhat</span>
+        <span class="tag">CLI Tool</span>
+      </div>
+    </a>
+
+    <!-- My Ad Market Bot -->
+    <a class="project-card purple" href="https://github.com/jbnikky13/my-ad-market-bot" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">📢</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">Ad Market Bot</div>
+      <div class="project-desc">Secure Telegram Mini App marketplace for ad space. Features verified channel subscriber data fetched via Telegram Bot API and a simulated escrow system for buyer protection. Built with Node.js — a full marketplace inside a chat app.</div>
+      <div class="project-tags">
+        <span class="tag purple">Telegram Mini App</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">Escrow</span>
+        <span class="tag">HTML</span>
+      </div>
+    </a>
+
+    <!-- Okta Security Audit -->
+    <a class="project-card" href="https://github.com/jbnikky13/okta-security-audit" target="_blank">
+      <div class="project-header">
+        <span class="project-icon">🔐</span>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div class="project-name">Okta Security Audit</div>
+      <div class="project-desc">Security assessment of credential handling during sensitive actions — password viewing and clipboard copy flows. Deep-dive log analysis confirming iOS 18 data protection intercepts all plain-text credential leaks. Final report confirms robust data protection.</div>
+      <div class="project-tags">
+        <span class="tag">Security Audit</span>
+        <span class="tag">iOS 18</span>
+        <span class="tag">Data Protection</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STACK -->
+<section id="stack">
+  <div class="section-label">Skills</div>
+  <h2>Technical Stack</h2>
+
+  <div class="stack-list fade-in">
+    <div class="stack-item">
+      <div class="stack-dot green"></div>
+      <div>
+        <div class="stack-name">Solana / Web3.js</div>
+        <div class="stack-sub">Blockchain</div>
+      </div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-dot green"></div>
+      <div>
+        <div class="stack-name">Anchor / Rust</div>
+        <div class="stack-sub">Smart Contracts</div>
+      </div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-dot purple"></div>
+      <div>
+        <div class="stack-name">React / Next.js</div>
+        <div class="stack-sub">Frontend</div>
+      </div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-dot purple"></div>
+      <div>
+        <div class="stack-name">TypeScript</div>
+        <div class="stack-sub">Language</div>
+      </div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-dot green"></div>
+      <div>
+        <div class="stack-name">Python</div>
+        <div class="stack-sub">Data / ML</div>
+      </div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-dot"></div>
+      <div>
+        <div class="stack-name">Node.js</div>
+        <div class="stack-sub">Backend</div>
+      </div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-dot red"></div>
+      <div>
+        <div class="stack-name">Solidity / Hardhat</div>
+        <div class="stack-sub">EVM Contracts</div>
+      </div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-dot"></div>
+      <div>
+        <div class="stack-name">Pandas / Matplotlib</div>
+        <div class="stack-sub">Analysis</div>
+      </div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-dot green"></div>
+      <div>
+        <div class="stack-name">Pi Network SDK</div>
+        <div class="stack-sub">Pi Browser</div>
+      </div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-dot purple"></div>
+      <div>
+        <div class="stack-name">Supabase</div>
+        <div class="stack-sub">Database</div>
+      </div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-dot"></div>
+      <div>
+        <div class="stack-name">Vercel / Railway</div>
+        <div class="stack-sub">Deployment</div>
+      </div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-dot red"></div>
+      <div>
+        <div class="stack-name">GitHub / Git</div>
+        <div class="stack-sub">Version Control</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2>Let's build something<br>that matters</h2>
+  <p style="color:var(--muted); font-size:0.82rem; line-height:1.8; max-width:480px; margin-bottom:2.5rem;">
+    Open to collaborations in healthcare tech, Web3 data tooling, and blockchain infrastructure. If you're building something at the intersection of public health and decentralized systems — let's talk.
+  </p>
+  <div class="contact-row fade-in">
+    <a class="contact-link" href="mailto:yourname@email.com">
+      <span>✉</span> Email
+    </a>
+    <a class="contact-link" href="https://x.com/Vibeholder" target="_blank">
+      <span>𝕏</span> Twitter
+    </a>
+    <a class="contact-link" href="https://wa.me/2348189963607" target="_blank">
+      <span>📱</span> WhatsApp
+    </a>
+    <a class="contact-link" href="https://github.com/jbnikky13" target="_blank">
+      <span>⌥</span> GitHub
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Godam Nichole</span>
+  <span>Pharmacist · Data Analyst · Web3 Developer</span>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
