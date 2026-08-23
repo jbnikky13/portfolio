@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add('js');</script>
 <title>Godam Nichole | Pharmacist · Data Analyst · Web3 Developer</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -68,6 +69,26 @@
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--gold); }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    z-index: 101;
+  }
+  .nav-toggle span {
+    width: 24px;
+    height: 2px;
+    background: var(--navy);
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   /* ── HERO ── */
   .hero {
@@ -480,7 +501,8 @@
   footer span.gold { color: var(--gold); }
 
   /* ── FADE IN ── */
-  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .fade-in { transition: opacity 0.65s ease, transform 0.65s ease; }
+  .js .fade-in { opacity: 0; transform: translateY(24px); }
   .fade-in.visible { opacity: 1; transform: none; }
 
   /* ── RESPONSIVE ── */
@@ -494,7 +516,22 @@
     .hero { padding: 7rem 1.5rem 4rem; }
   }
   @media (max-width: 600px) {
-    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    .nav-links {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: rgba(245,240,232,0.98);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-navy);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-links.open { max-height: 320px; }
+    .nav-links li { width: 100%; }
+    .nav-links a { display: block; padding: 1rem 1.5rem; }
     .projects-grid { grid-template-columns: 1fr; }
     .contact-bg { clip-path: polygon(0 30px, 100% 0, 100% 100%, 0 100%); padding-top: 80px !important; }
     footer { padding: 1.5rem; }
@@ -506,9 +543,13 @@
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#">Godam Nichole</a>
-  <ul class="nav-links">
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
     <li><a href="#stack">Stack</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -701,6 +742,28 @@
   </div>
 </section>
 
+<!-- CERTIFICATIONS -->
+<section class="projects-bg" id="certifications">
+  <div class="section-wrap">
+    <div class="section-label">Credentials</div>
+    <h2>Certifications</h2>
+    <div class="projects-grid fade-in">
+
+      <a class="project-card" href="https://www.prompten.xyz/verify/PE-MTBAY3M6KXNT1BRFMBNX1GTG08" target="_blank">
+        <div class="project-header"><span class="project-icon">🎓</span><span class="project-arrow">↗</span></div>
+        <div class="project-name">Prompt Engineering</div>
+        <div class="project-desc">Career-grade prompt engineering certification — 8 modules, 26 lessons covering prompting techniques for LLMs including ChatGPT and Claude.</div>
+        <div class="project-tags">
+          <span class="tag tag-gold">Prompten</span>
+          <span class="tag tag-cream">AI / LLM</span>
+          <span class="tag tag-live">Verify ↗</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
 <!-- STACK -->
 <section class="stack-bg" id="stack">
   <div class="section-wrap">
@@ -744,10 +807,40 @@
 </footer>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  var fadeEls = document.querySelectorAll('.fade-in');
+  function revealAll() { fadeEls.forEach(function(el) { el.classList.add('visible'); }); }
+  try {
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.08 });
+      fadeEls.forEach(function(el) { observer.observe(el); });
+    } else {
+      revealAll();
+    }
+  } catch (err) {
+    revealAll();
+  }
+  // Safety net: guarantee visibility even if the observer misses something
+  // (slow connection, bfcache restore, etc.) so the page never appears blank.
+  setTimeout(revealAll, 1500);
+
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', function() {
+      var isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    navLinks.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 </script>
 </body>
 </html>
